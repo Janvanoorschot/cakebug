@@ -20,6 +20,7 @@ use Cake\Core\Configure;
 use Cake\Http\Exception\ForbiddenException;
 use Cake\Http\Exception\NotFoundException;
 use Cake\Http\Response;
+use Cake\ORM\TableRegistry;
 use Cake\View\Exception\MissingTemplateException;
 
 /**
@@ -59,6 +60,12 @@ class PagesController extends AppController
         if (!empty($path[1])) {
             $subpage = $path[1];
         }
+
+        // JvO: my model test
+        $typea = TableRegistry::getTableLocator()->get('TypeA');
+        $ta1 = $typea->find()->first();
+        //JvO: end
+
         $this->set(compact('page', 'subpage'));
 
         try {
