@@ -2,4 +2,5 @@ vendor
 tmp
 logs
 .idea
+webroot/cakebug.sqlite
 

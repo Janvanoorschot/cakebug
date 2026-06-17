@@ -1,0 +1,39 @@
+#!/usr/bin/env php
+<?php
+
+# call as: initdb [-h] [-v] -t klant1,klant2 memo1
+
+require dirname(dirname(__FILE__)) . '/vendor/autoload.php';
+// load the .env file for environment variables
+
+$db = new PDO('sqlite:../webroot/cakebug.sqlite');
+
+$tables = [
+        "CREATE TABLE IF NOT EXISTS typeas (
+  id INTEGER PRIMARY KEY
+)",
+        "CREATE TABLE IF NOT EXISTS typebs (
+  id INTEGER PRIMARY KEY
+)",
+        "CREATE TABLE IF NOT EXISTS typecs (
+  id INTEGER PRIMARY KEY
+)",
+        "CREATE TABLE IF NOT EXISTS typeatypeblinks (
+  id INTEGER PRIMARY KEY,
+  typea_id INTEGER,
+  typeb_id INTEGER,
+  FOREIGN KEY(typea_id) REFERENCES typea(id),
+  FOREIGN KEY(typeb_id) REFERENCES typeb(id)
+)",
+        "CREATE TABLE IF NOT EXISTS typebtypeclinks (
+  id INTEGER PRIMARY KEY,
+  typeb_id INTEGER,
+  typec_id INTEGER,
+  FOREIGN KEY(typeb_id) REFERENCES typeb(id),
+  FOREIGN KEY(typec_id) REFERENCES typec(id)
+)",
+];
+
+foreach ($tables as $query) {
+    $db->exec($query);
+}
