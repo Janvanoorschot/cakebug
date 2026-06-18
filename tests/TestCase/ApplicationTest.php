@@ -84,7 +84,7 @@ class ApplicationTest extends TestCase
         $this->assertInstanceOf(RoutingMiddleware::class, $middleware->current());
     }
 
-    public function testView()
+    public function testDemo()
     {
         $app = new Application(dirname(dirname(__DIR__)) . '/config');
         $app->bootstrap();
