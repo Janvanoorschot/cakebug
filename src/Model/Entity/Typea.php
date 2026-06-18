@@ -5,6 +5,6 @@ namespace App\Model\Entity;
 
 use Cake\ORM\Entity;
 
-class TypeA extends Entity
+class Typea extends Entity
 {
 }

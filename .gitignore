@@ -2,5 +2,7 @@ vendor
 tmp
 logs
 .idea
-webroot/cakebug.sqlite
+*.sqlite
+.phpunit.cache
+
 

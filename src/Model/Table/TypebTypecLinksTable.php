@@ -5,12 +5,11 @@ namespace App\Model\Table;
 
 use Cake\ORM\Table;
 
-class TypeATable extends Table
+class TypebTypecLinksTable extends Table
 {
     public function initialize(array $config): void
     {
-        $this->belongsToMany('TypeB', [
-            'through' => 'TypeATypeBLinks',
-        ]);
+        $this->belongsTo('Typeb');
+        $this->belongsTo('Typec');
     }
 }

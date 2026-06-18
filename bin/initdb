@@ -8,15 +8,22 @@ require dirname(dirname(__FILE__)) . '/vendor/autoload.php';
 
 $db = new PDO('sqlite:../webroot/cakebug.sqlite');
 
+/*
+ * First create the tables.
+ */
 $tables = [
         "CREATE TABLE IF NOT EXISTS typeas (
-  id INTEGER PRIMARY KEY
+  id INTEGER PRIMARY KEY,
+  name TEXT DEFAULT 'defaulta'
+                                  
 )",
         "CREATE TABLE IF NOT EXISTS typebs (
-  id INTEGER PRIMARY KEY
+  id INTEGER PRIMARY KEY,
+  name TEXT DEFAULT 'defaultb'
 )",
         "CREATE TABLE IF NOT EXISTS typecs (
-  id INTEGER PRIMARY KEY
+  id INTEGER PRIMARY KEY,
+  name TEXT DEFAULT 'defaultc'
 )",
         "CREATE TABLE IF NOT EXISTS typeatypeblinks (
   id INTEGER PRIMARY KEY,
@@ -37,3 +44,51 @@ $tables = [
 foreach ($tables as $query) {
     $db->exec($query);
 }
+
+/*
+ * Next fill the tables with some correct content
+ */
+$result = $db->exec("INSERT INTO typeas (name) VALUES ('a1')");
+$a1 = $db->lastInsertId();
+$result = $db->exec("INSERT INTO typeas (name) VALUES ('a2')");
+$a2 = $db->lastInsertId();
+
+$result = $db->exec("INSERT INTO typebs (name) VALUES ('b11')");
+$b11 = $db->lastInsertId();
+$result = $db->exec("INSERT INTO typebs (name) VALUES ('b12')");
+$b12 = $db->lastInsertId();
+$result = $db->exec("INSERT INTO typebs (name) VALUES ('b21')");
+$b21 = $db->lastInsertId();
+$result = $db->exec("INSERT INTO typebs (name) VALUES ('b22')");
+$b22 = $db->lastInsertId();
+
+$result = $db->exec("INSERT INTO typecs (name) VALUES ('c111')");
+$c111 = $db->lastInsertId();
+$result = $db->exec("INSERT INTO typecs (name) VALUES ('c112')");
+$c112 = $db->lastInsertId();
+$result = $db->exec("INSERT INTO typecs (name) VALUES ('c121')");
+$c121 = $db->lastInsertId();
+$result = $db->exec("INSERT INTO typecs (name) VALUES ('c122')");
+$c122 = $db->lastInsertId();
+$result = $db->exec("INSERT INTO typecs (name) VALUES ('c211')");
+$c211 = $db->lastInsertId();
+$result = $db->exec("INSERT INTO typecs (name) VALUES ('c212')");
+$c212 = $db->lastInsertId();
+$result = $db->exec("INSERT INTO typecs (name) VALUES ('c221')");
+$c221 = $db->lastInsertId();
+$result = $db->exec("INSERT INTO typecs (name) VALUES ('c222')");
+$c222 = $db->lastInsertId();
+
+$result = $db->exec("INSERT INTO typeatypeblinks (typea_id,typeb_id) VALUES ($a1, $b11)");
+$result = $db->exec("INSERT INTO typeatypeblinks (typea_id,typeb_id) VALUES ($a1, $b12)");
+$result = $db->exec("INSERT INTO typeatypeblinks (typea_id,typeb_id) VALUES ($a2, $b21)");
+$result = $db->exec("INSERT INTO typeatypeblinks (typea_id,typeb_id) VALUES ($a2, $b22)");
+
+$result = $db->exec("INSERT INTO typebtypeclinks (typeb_id,typec_id) VALUES ($b11, $c111)");
+$result = $db->exec("INSERT INTO typebtypeclinks (typeb_id,typec_id) VALUES ($b11, $c112)");
+$result = $db->exec("INSERT INTO typebtypeclinks (typeb_id,typec_id) VALUES ($b12, $c121)");
+$result = $db->exec("INSERT INTO typebtypeclinks (typeb_id,typec_id) VALUES ($b12, $c122)");
+$result = $db->exec("INSERT INTO typebtypeclinks (typeb_id,typec_id) VALUES ($b21, $c211)");
+$result = $db->exec("INSERT INTO typebtypeclinks (typeb_id,typec_id) VALUES ($b21, $c212)");
+$result = $db->exec("INSERT INTO typebtypeclinks (typeb_id,typec_id) VALUES ($b22, $c221)");
+$result = $db->exec("INSERT INTO typebtypeclinks (typeb_id,typec_id) VALUES ($b22, $c222)");

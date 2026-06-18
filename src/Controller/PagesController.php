@@ -62,8 +62,8 @@ class PagesController extends AppController
         }
 
         // JvO: my model test
-        $typea = TableRegistry::getTableLocator()->get('TypeA');
-        $ta1 = $typea->find()->first();
+        $typeas = TableRegistry::getTableLocator()->get('Typeas');
+        $ta1 = $typeas->find()->first();
         //JvO: end
 
         $this->set(compact('page', 'subpage'));
