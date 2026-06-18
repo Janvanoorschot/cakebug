@@ -61,12 +61,10 @@ class PagesController extends AppController
             $subpage = $path[1];
         }
 
-        // JvO: my model test
-        $typeas = TableRegistry::getTableLocator()->get('Typeas');
-        $ta1 = $typeas->find()->first();
-        //JvO: end
-
         $this->set(compact('page', 'subpage'));
+
+        // call demonstration
+        $this->demonstration();
 
         try {
             return $this->render(implode('/', $path));
@@ -75,6 +73,27 @@ class PagesController extends AppController
                 throw $exception;
             }
             throw new NotFoundException();
+        }
+    }
+
+    public function demonstration()
+    {
+        // JvO: seperate function to isolate added demonstration code
+        $typeas = TableRegistry::getTableLocator()->get('Typeas');
+        $typebs = TableRegistry::getTableLocator()->get('Typebs');
+        $typea_typeb_links = TableRegistry::getTableLocator()->get('TypeaTypebLinks');
+
+        $a2 = $typeas->find()->where("name='a2'")->first();
+        $a2_id = $a2['id'];
+        $complete_a2 = $typeas->get($a2['id'], contain: 'Typebs');
+        $bs = $complete_a2['typebs'];
+        $typea_typeb_links->deleteAll(['typea_id' => $a2_id]);
+        foreach($bs as $b) {
+            $b_id = $b['id'];
+            $count = $typea_typeb_links->find()->where(['typeb_id' => $b_id])->count();
+            if($count <= 0) {
+                $bs = $typebs->get($b_id, ['contain' => 'Typecs']);
+            }
         }
     }
 }

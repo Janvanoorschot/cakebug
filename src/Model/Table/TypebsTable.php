@@ -9,10 +9,10 @@ class TypebsTable extends Table
 {
     public function initialize(array $config): void
     {
-        $this->belongsToMany('Typea', [
+        $this->belongsToMany('Typeas', [
             'through' => 'TypeaTypebLinks',
         ]);
-        $this->belongsToMany('Typec', [
+        $this->belongsToMany('Typecs', [
             'through' => 'TypebTypecLinks',
         ]);
     }
