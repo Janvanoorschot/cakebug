@@ -18,6 +18,13 @@ return [
             'database' => '../webroot/cakebug.sqlite',
             'log' => true,
         ],
+        'test' => [
+            'className' => Connection::class,
+            'driver' => Sqlite::class,
+            'datasource' => 'Database/Sqlite',
+            'database' => '../webroot/cakebug_test.sqlite',
+            'log' => true,
+        ],
         'debug_kit' => [
             'className' => 'Cake\Database\Connection',
             'driver' => Sqlite::class,

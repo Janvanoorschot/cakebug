@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace App\Test\TestCase;
 
 use App\Application;
+use App\Lib\Demo;
 use Cake\Core\Configure;
 use Cake\Error\Middleware\ErrorHandlerMiddleware;
 use Cake\Http\MiddlewareQueue;
@@ -82,4 +83,17 @@ class ApplicationTest extends TestCase
         $middleware->seek(2);
         $this->assertInstanceOf(RoutingMiddleware::class, $middleware->current());
     }
+
+    public function testView()
+    {
+        $app = new Application(dirname(dirname(__DIR__)) . '/config');
+        $app->bootstrap();
+
+        // call demonstration
+        $demo = new Demo();
+        $result = $demo->demonstration();
+        $this->assertTrue($result);
+
+    }
+
 }

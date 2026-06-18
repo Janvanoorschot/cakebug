@@ -38,16 +38,16 @@ if (empty($_SERVER['HTTP_HOST']) && !Configure::read('App.fullBaseUrl')) {
 // DebugKit skips settings these connection config if PHP SAPI is CLI / PHPDBG.
 // But since PagesControllerTest is run with debug enabled and DebugKit is loaded
 // in application, without setting up these config DebugKit errors out.
-ConnectionManager::setConfig('test_debug_kit', [
-    'className' => 'Cake\Database\Connection',
-    'driver' => 'Cake\Database\Driver\Sqlite',
-    'database' => TMP . 'debug_kit.sqlite',
-    'encoding' => 'utf8',
-    'cacheMetadata' => true,
-    'quoteIdentifiers' => false,
-]);
-
-ConnectionManager::alias('test_debug_kit', 'debug_kit');
+//ConnectionManager::setConfig('test_debug_kit', [
+//    'className' => 'Cake\Database\Connection',
+//    'driver' => 'Cake\Database\Driver\Sqlite',
+//    'database' => TMP . 'debug_kit.sqlite',
+//    'encoding' => 'utf8',
+//    'cacheMetadata' => true,
+//    'quoteIdentifiers' => false,
+//]);
+//
+//ConnectionManager::alias('test_debug_kit', 'debug_kit');
 
 // Fixate now to avoid one-second-leap-issues
 Chronos::setTestNow(Chronos::now());
@@ -59,7 +59,7 @@ session_id('cli');
 
 // Connection aliasing needs to happen before migrations are run.
 // Otherwise, table objects inside migrations would use the default datasource
-ConnectionHelper::addTestAliases();
+//ConnectionHelper::addTestAliases();
 
 // Use migrations to build test database schema.
 //
@@ -72,4 +72,14 @@ ConnectionHelper::addTestAliases();
 // use Cake\TestSuite\Fixture\SchemaLoader;
 // (new SchemaLoader())->loadSqlFiles('./tests/schema.sql', 'test');
 
-(new Migrator())->run();
+//(new Migrator())->run();
+// initialize the database before every unit-test
+$curdir = dirname(__FILE__);
+$rootdir = dirname($curdir);
+$bindir = $rootdir . '/tests';
+chdir($bindir);
+$dbasescript = $bindir . '/initdb';
+print("here is bootstrap: $dbasescript");
+$output = null;
+$retval = null;
+exec($dbasescript, $output, $retval);

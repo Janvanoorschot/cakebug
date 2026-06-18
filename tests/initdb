@@ -5,7 +5,7 @@
 
 require dirname(dirname(__FILE__)) . '/vendor/autoload.php';
 $rootdir = dirname(dirname(__FILE__));
-$db = new PDO("sqlite:$rootdir/webroot/cakebug.sqlite");
+$db = new PDO("sqlite:$rootdir/webroot/cakebug_test.sqlite");
 
 /*
  * Drop the tables.
@@ -16,7 +16,7 @@ $tables = [
         "DROP TABLE IF EXISTS typeas",
         "DROP TABLE IF EXISTS typebs",
         "DROP TABLE IF EXISTS typecs",
-];
+    ];
 foreach ($tables as $query) {
     $db->exec($query);
 }
